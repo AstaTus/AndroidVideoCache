@@ -64,12 +64,12 @@ class HttpProxyCache extends ProxyCache {
         long contentLength = request.partial ? length - request.rangeOffset : length;
         boolean addRange = lengthKnown && request.partial;
         return new StringBuilder()
-                .append(request.partial ? "HTTP/1.1 206 PARTIAL CONTENT\n" : "HTTP/1.1 200 OK\n")
-                .append("Accept-Ranges: bytes\n")
-                .append(lengthKnown ? format("Content-Length: %d\n", contentLength) : "")
-                .append(addRange ? format("Content-Range: bytes %d-%d/%d\n", request.rangeOffset, length - 1, length) : "")
-                .append(mimeKnown ? format("Content-Type: %s\n", mime) : "")
-                .append("\n") // headers end
+                .append(request.partial ? "HTTP/1.1 206 PARTIAL CONTENT\r\n" : "HTTP/1.1 200 OK\r\n")
+                .append("Accept-Ranges: bytes\r\n")
+                .append(lengthKnown ? format("Content-Length: %d\r\n", contentLength) : "")
+                .append(addRange ? format("Content-Range: bytes %d-%d/%d\r\n", request.rangeOffset, length - 1, length) : "")
+                .append(mimeKnown ? format("Content-Type: %s\r\n", mime) : "")
+                .append("\r\n") // headers end
                 .toString();
     }
 
